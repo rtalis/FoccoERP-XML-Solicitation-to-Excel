@@ -19,7 +19,7 @@ Este script importa um arquivo XML do FoccoERP - Solicitação de Compra e cria 
 Instale as bibliotecas necessárias:
 
 ```bash
-pip install openpyxl
+pip install -r requirements.txt
 
 python main.py <xml_file>
 
@@ -32,11 +32,8 @@ python main.py <xml_file>
 Alternativamente, você pode arrastar e soltar o arquivo XML no executável (uma vez criado).
 
 ## Criando um Executável
-Para criar um executável standalone, use o PyInstaller. Primeiro, instale o PyInstaller se ainda não o tiver:
-```bash
-pip install pyinstaller
-```
-Em seguida, use o seguinte comando para criar o executável:
+Para criar um executável standalone, use o PyInstaller.
+Use o seguinte comando para criar o executável:
 ```bash
 pyinstaller --onefile --add-data="model.xlsx:." main.py
 ```
