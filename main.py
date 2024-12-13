@@ -45,7 +45,7 @@ def purchase_order_to_excel(excel_file, xml_file):
         row = 3
         for item in root.findall(".//TPED_COMPRA"):
             observacao = get_text(item, "OBSERVACAO")
-            solicitacao_num = extract_solicitacao(observacao)
+            solicitacao_num = "" if observacao is None else extract_solicitacao(observacao)
             data = [
                 "", 
                 solicitacao_num,# Column B
@@ -64,6 +64,7 @@ def purchase_order_to_excel(excel_file, xml_file):
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        input("Aperte enter para sair")
 
 def solicitaton_to_excel(excel_file, xml_file):
     try:
@@ -89,6 +90,7 @@ def solicitaton_to_excel(excel_file, xml_file):
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        input("Aperte enter para sair")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
