@@ -101,15 +101,20 @@ def cotacao_rcot0300_to_excel(excel_file, xml_file):
         sheet = workbook.active
 
         row = 3
-        for g4_item in root.findall(".//G_4"):
-            data = [
-                "",  # Column A
-                get_text(g4_item, "DESC_ITEM"),  # Column B
-                get_text(g4_item, "QTDE"),       # Column C
-                "", "", "", "", ""               # Columns D through H
-            ]
-            write_to_excel(sheet, row, data)
-            row += 1
+
+        first_g4_list = root.find(".//LIST_G_4")
+        if first_g4_list is not None:
+            for g4_item in first_g4_list.findall("G_4"):
+                data = [
+                    "",  # Column A
+                    get_text(g4_item, "DESC_ITEM"),  # Column B
+                    get_text(g4_item, "QTDE"),       # Column C
+                    "", "", "", "", ""               # Columns D through H
+                ]
+                write_to_excel(sheet, row, data)
+                row += 1
+        else:
+            print("No items found in RCOT0300 XML.")
 
         new_filename = f'cotação RCOT0300 {datetime.now().strftime("%Y-%m-%d %H-%M-%S")}.xlsx'
         workbook.save(new_filename)
