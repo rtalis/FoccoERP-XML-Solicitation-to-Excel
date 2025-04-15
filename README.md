@@ -35,9 +35,9 @@ Alternativamente, você pode arrastar e soltar o arquivo XML no executável (uma
 Para criar um executável standalone, use o PyInstaller.
 Use o seguinte comando para criar o executável:
 ```bash
-pyinstaller --onefile --add-data="model.xlsx:." main.py
+pyinstaller --onefile --add-data="model1.xlsx:." --add-data="model2.xlsx:." main.py
 ```
-Este comando empacota o script e o arquivo model.xlsx em um único arquivo executável.
+Este comando empacota o script e o arquivo model.xlsx em um único arquivo executável. 
 
 ## Exemplo
 Para processar um arquivo XML chamado data.xml:

@@ -91,6 +91,33 @@ def solicitaton_to_excel(excel_file, xml_file):
     except Exception as e:
         print(f"An error occurred: {e}")
         input("Aperte enter para sair")
+        
+        
+def cotacao_rcot0300_to_excel(excel_file, xml_file):
+    try:
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+        workbook = load_workbook(excel_file)
+        sheet = workbook.active
+
+        row = 3
+        for g4_item in root.findall(".//G_4"):
+            data = [
+                "",  # Column A
+                get_text(g4_item, "DESC_ITEM"),  # Column B
+                get_text(g4_item, "QTDE"),       # Column C
+                "", "", "", "", ""               # Columns D through H
+            ]
+            write_to_excel(sheet, row, data)
+            row += 1
+
+        new_filename = f'cotação RCOT0300 {datetime.now().strftime("%Y-%m-%d %H-%M-%S")}.xlsx'
+        workbook.save(new_filename)
+        print(f"Saved file as {new_filename}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        input("Aperte enter para sair")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -108,5 +135,7 @@ if __name__ == "__main__":
     file_name = os.path.basename(xml_file)
     if file_name.startswith("RPDC0250_RUAH"):
         purchase_order_to_excel(path_to_model2, xml_file)
-    else:
+    elif file_name.startswith("RPDC0251"):
         solicitaton_to_excel(path_to_model1, xml_file)
+    elif file_name.startswith("RCOT0300"):
+        cotacao_rcot0300_to_excel(path_to_model1, xml_file)
